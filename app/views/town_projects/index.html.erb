@@ -1,0 +1,27 @@
+<h1>Listing town_projects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Town name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @town_projects.each do |town_project| %>
+      <tr>
+        <td><%= town_project.town_name %></td>
+        <td><%= link_to 'Show', town_project %></td>
+        <td><%= link_to 'Edit', edit_town_project_path(town_project) %></td>
+        <td><%= link_to 'Destroy', town_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Town project', new_town_project_path %>

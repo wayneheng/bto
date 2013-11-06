@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @launch.title %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @launch.version %>
+</p>
+
+<p>
+  <strong>Imagepath:</strong>
+  <%= @launch.imagePath %>
+</p>
+
+<%= link_to 'Edit', edit_launch_path(@launch) %> |
+<%= link_to 'Back', launches_path %>

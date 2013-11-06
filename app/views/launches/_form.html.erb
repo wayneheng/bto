@@ -1,0 +1,29 @@
+<%= form_for(@launch) do |f| %>
+  <% if @launch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@launch.errors.count, "error") %> prohibited this launch from being saved:</h2>
+
+      <ul>
+      <% @launch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br>
+    <%= f.number_field :version %>
+  </div>
+  <div class="field">
+    <%= f.label :imagePath %><br>
+    <%= f.text_field :imagePath %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

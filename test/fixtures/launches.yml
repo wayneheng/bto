@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  version: 1
+  imagePath: MyString
+
+two:
+  title: MyString
+  version: 1
+  imagePath: MyString
