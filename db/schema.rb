@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106120304) do
+ActiveRecord::Schema.define(version: 20131109093956) do
 
   create_table "launches", force: true do |t|
     t.string   "title"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20131106120304) do
     t.integer  "launch_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "blocks"
+    t.string   "scrape_url"
   end
 
   add_index "projects", ["launch_id"], name: "index_projects_on_launch_id"
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 20131106120304) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_taken"
   end
 
   add_index "units", ["project_id"], name: "index_units_on_project_id"
