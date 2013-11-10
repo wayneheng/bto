@@ -1,0 +1,896 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+<HTML>
+<HEAD>
+<TITLE>Block Lists</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="Rational Application Developer">
+<!--<SCRIPT language=JavaScript -->
+<!--src="origSBF/SaleofBalanceFlats_files/12SEPSBFBD_isgsearch_files/12SEPSBFBD_searchresults_files/12SEPSBFBD_functions.js"></SCRIPT>-->
+
+<!--<SCRIPT language=JavaScript -->
+<!--src="origSBF/SaleofBalanceFlats_files/12SEPSBFBD_isgsearch_files/12SEPSBFBD_searchresults_files/12SEPSBF_gorp.js"></SCRIPT>-->
+
+<link rel="stylesheet" href="theme/details.css" type="text/css">
+<style>
+BODY{ 
+	background-color:"#CFECFB";
+	scrollbar-face-color:"#D7EFFB"; 
+	scrollbar-arrow-color:"#000000"; 
+	scrollbar-track-color:"#FFFFFF"; 
+	scrollbar-shadow-color:""; 
+	scrollbar-highlight-color:""; 
+	scrollbar-3dlight-color:"#298EC2";
+	scrollbar-darkshadow-color:"#298EC2";
+}
+</style> 
+
+
+
+
+<script> 
+document.domain = 'hdb.gov.sg';
+</script>
+
+<script language="JavaScript">
+	function checkBlk(value, neigh, contract) { 
+		document.forms[0].Block.value = value;
+		document.forms[0].Neighbourhood.value = neigh; 
+		document.forms[0].Contract.value = contract; 
+		 
+		document.forms[0].action="BP13EBSBULIST4";  
+		document.forms[0].method="post";  
+		document.forms[0].submit(); 
+		
+		goblock(neigh, contract);
+	}
+	
+function openPopup(){ 
+
+	var txtBox=parent.document.getElementById("projDiv").style.display;
+	var projNameText = "";
+	var projName = "";
+	if(txtBox == "inline"){
+		projNameObj=parent.document.getElementById("select10");
+		projName =projNameObj.options[projNameObj.selectedIndex].value;		
+		projNameText = projNameObj.options[projNameObj.selectedIndex].innerHTML;
+	}
+	//alert(projName);
+	var flatType = document.forms[0].Flat.value;
+	var selection = document.forms[0].Flat_Type.value;
+	var DesType = document.forms[0].DesType.value;
+	var estate = document.forms[0].Town.value;
+	var EthnicA = document.forms[0].EthnicA.value;
+	var EthnicM = document.forms[0].EthnicM.value;	
+	var EthnicC = document.forms[0].EthnicC.value;
+	var EthnicO = document.forms[0].EthnicO.value;	
+	var ViewOption = "1"; //hardcoded to 1,should get not booked results always	
+	var dteBallot = document.forms[0].dteBallot.value;	
+	
+
+/*	if(flatType == "1A"){
+		flatType = "Studio Apt (35 sqm)";
+	}else if(flatType == "2A"){
+		flatType = "Studio Apt (45 sqm)";
+	}
+*/	
+	if(DesType == "A"){
+		DesType = "Any";
+	}else if(DesType == "S"){
+		DesType = "Standard";
+	}else if(DesType == "P"){
+		DesType = "Premium";
+	}		
+	
+	/*var confirmMsg = confirm("Are you sure you want to view the cheapest unit?"+"\n\n"+
+							 "Estate :        "+estate+"\n"+
+							 "Flat Type :  "+flatType+"\n"+
+							 "Design :      "+DesType+"\n"+
+							 "Ethnic :       "+ethnic);
+	if(confirmMsg){  */
+	var foc;
+	var url = "/webapp/BP13INTV/BP13SCheapestUnit?Town="+estate+"&selection="+selection+"&DesType="+document.forms[0].DesType.value+"&"+
+				"EthnicA="+EthnicA+"&EthnicO="+EthnicO+"&EthnicC="+EthnicC+"&EthnicM="+EthnicM+"&Flat="+document.forms[0].Flat.value+""+
+				"&ViewOption="+ViewOption+"&dteBallot="+dteBallot+"&projName="+projName+"&projNameText="+projNameText+"";
+		//alert(url);		
+		
+	foc = window.open(url, "openmyunit", "toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=yes,width=420,height=400,top=50,left=50"); 
+	if(foc!=null){
+		foc.focus(); 
+	}
+	//}
+}	 
+	
+function goblock(neigh, contract){
+	var blk = document.forms[0].Block.value; 	
+	var town = document.forms[0].Town.value; 	 	
+	var flatType = document.forms[0].Flat.value; 	 	
+	var neighContract = neigh+contract;
+	document.domain = 'hdb.gov.sg';
+	//top.frames['mp'].location.href = "../../12SEPSBFBD_page/$file/12SEPSBFBD_tm.htm?open&twn=BM&ctr=N4RC40&blk=126A";
+	var url = "http://"+""+"/hdbvsf/eampu07p.nsf/0/13JULBTO_page_8820/$file/tm.htm?open&twn="+town+"&ctr="+neighContract+"&blk="+blk+"&flattype="+flatType+"";
+		//alert(url);
+	top.frames['mp'].location.href = url;
+
+}	
+
+function goblockOne(neigh, contract, blk, errCode){
+	var firstLoadMap = document.forms[0].firstLoadMap.value;
+	//alert(firstLoadMap); 	
+	var town = document.forms[0].Town.value; 
+	var flatType = document.forms[0].Flat.value; 	 			 	
+	var neighContract = neigh+contract;
+	document.domain = 'hdb.gov.sg';
+	if(errCode=="0000" && firstLoadMap=="No"){
+		var url = "http://"+""+"/hdbvsf/eampu07p.nsf/0/13JULBTO_page_8820/$file/tm.htm?open&twn="+town+"&ctr="+neighContract+"&blk="+blk+"&flattype="+flatType+"";
+		//alert(url);
+
+	}else{
+		url = "http://"+""+"/hdbvsf/eampu07p.nsf/0/13JULBTO_page_8820/$file/defaultimg.htm";	
+	}
+	top.frames['mp'].location.href = url;	
+}
+
+function hideMap(){
+	var url = "http://"+""+"/hdbvsf/eampu07p.nsf/0/13JULBTO_page_8820/$file/defaultimg.htm";	
+		//alert(url);
+	top.frames['mp'].location.href = url;
+}
+	
+function showBlkDiv(com){ 
+	document.getElementById(com).style.display="inline";
+} 
+
+function hideBlkDiv(com){ 
+	document.getElementById(com).style.display="none";
+}
+
+function showdiv(com){ 
+	var divcom = "div"+com;
+	var tblcom = "tbl"+com;
+	document.getElementById(divcom).style.display="inline";
+	document.getElementById(tblcom).style.cursor="default"; 
+	document.getElementById(tblcom).style.fontWeight="bold";
+} 
+
+function hidediv(com){ 
+	var divcom = "div"+com;
+	var tblcom = "tbl"+com;
+	document.getElementById(divcom).style.display="none";
+	document.getElementById(tblcom).style.fontWeight="normal";
+}	
+	
+</script>
+
+</HEAD>
+
+
+<BODY bgcolor="#CFECFB" style="overflow-x:hidden; oncontextmenu='return false' ondragstart='return false' onselectstart='return false'">
+
+
+<!-- BODY bgcolor="#CFECFB" style="overflow-x:hidden;"  oncontextmenu='return false' ondragstart='return false' onselectstart='return false' -->
+<FORM>
+
+ 
+
+<table border=0 cellSpacing=0 cellPadding=0 width=403 align="center"  >
+<tr><td>
+
+      <TABLE border=0 cellSpacing=0 cellPadding=0 width="100%" align=center>
+        <TBODY>
+        <TR>
+          <TD height=19 vAlign=bottom>
+            <HR SIZE=1>
+          </TD></TR>
+ 		          
+        <TR style="display: block" >
+          <TD height=19 vAlign=bottom>
+            <DIV align=left ><FONT style="FONT-SIZE: 13px" color=#025831 
+            face="Arial, Helvetica, sans-serif"><FONT style="FONT-SIZE: 11px" 
+            color=#990000 face="Arial, Helvetica, sans-serif"><FONT 
+            color=#5090be><FONT color=#000000><FONT color=#ffffff><FONT 
+            style="FONT-SIZE: 13px" color=#025831 
+            face="Arial, Helvetica, sans-serif"><FONT style="FONT-SIZE: 11px" 
+            color=#990000 face="Arial, Helvetica, sans-serif"><FONT 
+            color=#5090be><FONT color=#000000><FONT color=#ffffff><FONT 
+            style="FONT-SIZE: 13px" color=#025831 
+            face="Arial, Helvetica, sans-serif"><FONT style="FONT-SIZE: 12px" 
+            color=#990000 face="Arial, Helvetica, sans-serif"><FONT 
+            color=#5090be><FONT color=#000000><FONT color=#ffffff><FONT 
+            style="FONT-SIZE: 13px" color=#025831 
+            face="Arial, Helvetica, sans-serif"><FONT style="FONT-SIZE: 11px" 
+            color=#990000 face="Arial, Helvetica, sans-serif"><FONT 
+            color=#5090be><FONT color=#000000><FONT color=#ffffff><FONT 
+            color=#000000>		  
+
+
+            <a href="javascript:openPopup()">Do you wish to know which is the cheapest unit available based on your search criteria(Not Booked)?</a>
+            
+            </FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></FONT></DIV></TD></TR>
+ 		
+            </TBODY></TABLE>        <br>    
+            
+
+<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#FFFFFF" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+    <tr> 
+      <td colspan="6" width="100%" height="14" bgcolor="#CCDDEE" > <div align="left"><font style="font-size:10px" face="Arial, Helvetica, sans-serif"><strong>
+		Click on block no. to view availability and maps/plans</strong></font></div></td>
+    </tr>	
+
+
+		<tr class="tblWhite">
+
+
+
+					<td style='text-align:center;#FFFFFF'>
+						<a href="javascript:checkBlk('90A','N1','C50')">
+						<font onmousemove="showBlkDiv('divBlock0')" onmouseout="hideBlkDiv('divBlock0')" width="60" class='bluetext'>  90A</font><div id=divBlock0 style=display:none;position:absolute>
+							<table width='80' border='1' bordercolor='#0066CC' class='tableGrid' cellspacing='0' cellpadding='0'>
+								<tr bgcolor='#CCDDEE'><td class='plaintext'><font style="font-size:10px" face="Arial, Helvetica, sans-serif">Telok Blangah St 31             </font></td></tr>
+							</table>
+						</div>			
+						</a>			
+					</td>
+					
+
+					<td style='text-align:center;background-color:#FFFAC2'>
+						<b>
+						<font onmousemove="showBlkDiv('divBlock1')" onmouseout="hideBlkDiv('divBlock1')" width="60" class='bluetext'>  90B</font><div id=divBlock1 style=display:none;position:absolute>
+							<table width='80' border='1' bordercolor='#0066CC' class='tableGrid' cellspacing='0' cellpadding='0'>
+								<tr bgcolor='#CCDDEE'><td class='plaintext'><font style="font-size:10px" face="Arial, Helvetica, sans-serif">Telok Blangah St 31             </font></td></tr>
+							</table>
+						</div>			
+						</b>			
+					</td>
+					
+
+					<td style='text-align:center;#FFFFFF'>
+						<a href="javascript:checkBlk('91A','N1','C50')">
+						<font onmousemove="showBlkDiv('divBlock2')" onmouseout="hideBlkDiv('divBlock2')" width="60" class='bluetext'>  91A</font><div id=divBlock2 style=display:none;position:absolute>
+							<table width='80' border='1' bordercolor='#0066CC' class='tableGrid' cellspacing='0' cellpadding='0'>
+								<tr bgcolor='#CCDDEE'><td class='plaintext'><font style="font-size:10px" face="Arial, Helvetica, sans-serif">Telok Blangah St 31             </font></td></tr>
+							</table>
+						</div>			
+						</a>			
+					</td>
+					
+
+					<td style='text-align:center;#FFFFFF'>
+						<a href="javascript:checkBlk('92B','N1','C50')">
+						<font onmousemove="showBlkDiv('divBlock3')" onmouseout="hideBlkDiv('divBlock3')" width="60" class='bluetext'>  92B</font><div id=divBlock3 style=display:none;position:absolute>
+							<table width='80' border='1' bordercolor='#0066CC' class='tableGrid' cellspacing='0' cellpadding='0'>
+								<tr bgcolor='#CCDDEE'><td class='plaintext'><font style="font-size:10px" face="Arial, Helvetica, sans-serif">Telok Blangah St 31             </font></td></tr>
+							</table>
+						</div>			
+						</a>			
+					</td>
+					
+
+					<td style='text-align:center;#FFFFFF'>
+						<a href="javascript:checkBlk('93A','N1','C50')">
+						<font onmousemove="showBlkDiv('divBlock4')" onmouseout="hideBlkDiv('divBlock4')" width="60" class='bluetext'>  93A</font><div id=divBlock4 style=display:none;position:absolute>
+							<table width='80' border='1' bordercolor='#0066CC' class='tableGrid' cellspacing='0' cellpadding='0'>
+								<tr bgcolor='#CCDDEE'><td class='plaintext'><font style="font-size:10px" face="Arial, Helvetica, sans-serif">Telok Blangah St 31             </font></td></tr>
+							</table>
+						</div>			
+						</a>			
+					</td>
+					
+
+					<td style='text-align:center;#FFFFFF'>
+						<a href="javascript:checkBlk('93B','N1','C50')">
+						<font onmousemove="showBlkDiv('divBlock5')" onmouseout="hideBlkDiv('divBlock5')" width="60" class='bluetext'>  93B</font><div id=divBlock5 style=display:none;position:absolute;left:320px><br>
+							<table width='80' border='1' bordercolor='#0066CC' class='tableGrid' cellspacing='0' cellpadding='0'>
+								<tr bgcolor='#CCDDEE'><td class='plaintext'><font style="font-size:10px" face="Arial, Helvetica, sans-serif">Telok Blangah St 31             </font></td></tr>
+							</table>
+						</div>			
+						</a>			
+					</td>
+					
+		</tr>
+
+</table>
+<br>
+
+
+
+<table width="100%" border="1" bordercolor="#0066CC" class="tableGrid" cellspacing="0" cellpadding="0">
+	<tr valign="top">
+		<td class="textLabelNew">Block</td>
+		<td class="textContentNew">  90B&nbsp;</td>
+		<td class="textLabelNew">Street</td>
+		<td class="textContentNew">Telok Blangah St 31&nbsp;</td>
+	</tr>
+
+	<tr valign="top">
+		<td class="textLabelNew" colspan="2">Delivery&nbsp;Possession&nbsp;Date</td>
+		<td class="textContentNew" colspan="2">30 Nov 2018 (Estimated)&nbsp;</td>	
+	</tr>
+
+	<tr valign="top">
+		<td class="textLabelNew" colspan="2">Available&nbsp;Ethnic&nbsp;Quota</td>
+		<td class="textContentNew" colspan="2" nowrap>Malay-24,&nbsp;Chinese-66,&nbsp;Indian/Other Races-13&nbsp;</td>
+	</tr>
+	
+		
+</table>
+<br>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	
+	      
+	   <tr><td class="titletext">Mouseover unit number for selling price and gross floor area</td></tr>
+	
+</table>
+
+<table width="100%" border="1" bordercolor="#0066CC" class="tableGrid" cellspacing="0" cellpadding="0">
+
+
+
+	<tr align="center">
+
+		<td  valign="top" align="center" bgcolor="#FFFFFF" width="60">
+			<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:none">
+
+			<tr height="20"><td style='border:none' title='$471,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl0'><font class=bluetext>  #02-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$475,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl1'><font class=bluetext>  #03-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$480,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl2'><font class=bluetext>  #04-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$493,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl3'><font class=bluetext>  #05-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$506,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl4'><font class=bluetext>  #06-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$509,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl5'><font class=bluetext>  #07-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$513,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl6'><font class=bluetext>  #08-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$514,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl7'><font class=bluetext>  #09-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$516,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl8'><font class=bluetext>  #10-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$517,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl9'><font class=bluetext>  #11-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$519,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl10'><font class=bluetext>  #12-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$520,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl11'><font class=bluetext>  #13-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$521,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl12'><font class=bluetext>  #14-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$523,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl13'><font class=bluetext>  #15-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$524,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl14'><font class=bluetext>  #16-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$526,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl15'><font class=bluetext>  #17-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$527,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl16'><font class=bluetext>  #18-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$528,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl17'><font class=bluetext>  #19-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #20-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$531,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl19'><font class=bluetext>  #21-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$533,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl20'><font class=bluetext>  #22-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$534,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl21'><font class=bluetext>  #23-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$535,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl22'><font class=bluetext>  #24-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #25-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #26-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$540,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl25'><font class=bluetext>  #27-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #28-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #29-231</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #30-231</font>
+			</tr>
+
+
+			</table>
+		</td>
+
+		<td  valign="top" align="center" bgcolor="#dbe8ee" width="60">
+			<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#dbe8ee" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:none">
+
+			<tr height="20"><td style='border:none' title='$471,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl29'><font class=bluetext>  #02-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$475,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl30'><font class=bluetext>  #03-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$480,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl31'><font class=bluetext>  #04-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$502,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl32'><font class=bluetext>  #05-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$506,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl33'><font class=bluetext>  #06-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$509,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl34'><font class=bluetext>  #07-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$513,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl35'><font class=bluetext>  #08-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$514,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl36'><font class=bluetext>  #09-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$516,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl37'><font class=bluetext>  #10-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$517,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl38'><font class=bluetext>  #11-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$519,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl39'><font class=bluetext>  #12-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$520,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl40'><font class=bluetext>  #13-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$521,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl41'><font class=bluetext>  #14-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #15-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #16-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #17-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #18-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #19-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #20-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #21-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #22-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #23-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #24-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #25-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #26-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #27-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #28-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #29-233</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #30-233</font>
+			</tr>
+
+
+			</table>
+		</td>
+
+		<td  valign="top" align="center" bgcolor="#FFFFFF" width="60">
+			<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:none">
+
+			<tr height="20"><td style='border:none' title='$471,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl58'><font class=bluetext>  #02-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$484,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl59'><font class=bluetext>  #03-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$489,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl60'><font class=bluetext>  #04-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$502,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl61'><font class=bluetext>  #05-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$506,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl62'><font class=bluetext>  #06-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$509,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl63'><font class=bluetext>  #07-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$513,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl64'><font class=bluetext>  #08-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$514,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl65'><font class=bluetext>  #09-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$516,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl66'><font class=bluetext>  #10-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$517,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl67'><font class=bluetext>  #11-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$519,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl68'><font class=bluetext>  #12-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$520,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl69'><font class=bluetext>  #13-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$521,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl70'><font class=bluetext>  #14-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$523,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl71'><font class=bluetext>  #15-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$524,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl72'><font class=bluetext>  #16-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$526,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl73'><font class=bluetext>  #17-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$527,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl74'><font class=bluetext>  #18-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$528,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl75'><font class=bluetext>  #19-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #20-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$531,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#FFFFFF'id='tbl77'><font class=bluetext>  #21-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #22-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #23-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #24-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #25-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #26-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #27-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #28-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #29-235</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #30-235</font>
+			</tr>
+
+
+			</table>
+		</td>
+
+		<td  valign="top" align="center" bgcolor="#dbe8ee" width="60">
+			<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#dbe8ee" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:none">
+
+			<tr height="20"><td style='border:none' title='$480,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl87'><font class=bluetext>  #02-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$484,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl88'><font class=bluetext>  #03-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$489,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl89'><font class=bluetext>  #04-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$493,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl90'><font class=bluetext>  #05-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$506,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl91'><font class=bluetext>  #06-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$509,900&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl92'><font class=bluetext>  #07-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$513,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl93'><font class=bluetext>  #08-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$514,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl94'><font class=bluetext>  #09-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$516,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl95'><font class=bluetext>  #10-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$517,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl96'><font class=bluetext>  #11-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$519,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl97'><font class=bluetext>  #12-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$520,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl98'><font class=bluetext>  #13-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$521,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl99'><font class=bluetext>  #14-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$523,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl100'><font class=bluetext>  #15-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$524,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl101'><font class=bluetext>  #16-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$526,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl102'><font class=bluetext>  #17-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$527,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl103'><font class=bluetext>  #18-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$528,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl104'><font class=bluetext>  #19-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$530,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl105'><font class=bluetext>  #20-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$531,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl106'><font class=bluetext>  #21-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$533,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl107'><font class=bluetext>  #22-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$534,400&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl108'><font class=bluetext>  #23-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$535,800&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl109'><font class=bluetext>  #24-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$537,200&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl110'><font class=bluetext>  #25-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$538,600&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl111'><font class=bluetext>  #26-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' title='$540,000&#013;-------------&#013;93&nbsp;Sqm' width='60' bgcolor='#dbe8ee'id='tbl112'><font class=bluetext>  #27-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #28-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #29-237</font>
+			</tr>
+
+
+			<tr height="20"><td style='border:none' width='60' onmouseover=this.style.cursor='default'><font class=redtext>  #30-237</font>
+			</tr>
+
+			</table>
+		</td>
+
+		<td  valign="top" align="center" bgcolor="#FFFFFF" width="60">
+			<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:none">
+
+			</table>
+		</td>
+
+		<td  valign="top" align="center" bgcolor="#dbe8ee" width="60">
+			<table width="100%" border="1" bordercolor="#0066CC" bgcolor="#dbe8ee" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:none">
+
+			</table>
+		</td>
+
+	</tr>
+
+
+</table>
+<br>
+
+
+
+
+
+
+
+
+</td>
+</tr>
+</table>
+
+
+
+<br>
+<!--<input type="hidden" name="ethnic" value="">-->
+<input type="hidden" name="Block" value="">
+<input type="hidden" name="Flat_Type" value="BTO">
+<input type="hidden" name="Town" value="Bukit Merah">
+<input type="hidden" name="Flat" value="4-ROOM">
+<input type="hidden" name="DesType" value="A">
+<input type="hidden" name="EthnicA" value="Y">
+<input type="hidden" name="EthnicM" value="">
+<input type="hidden" name="EthnicC" value="">
+<input type="hidden" name="EthnicO" value="">
+<input type="hidden" name="numSPR" value="">
+<input type="hidden" name="ViewOption" value="A">
+<input type="hidden" name="dteBallot" value="201307">
+<input type="hidden" name="Neighbourhood" value="">
+<input type="hidden" name="Contract" value="">
+<input type="hidden" name="projName" value="N1  ;C50 ">
+<input type="hidden" name="firstLoadMap" value="">
+<input type="hidden" name="callPage" value="">
+
+
+</FORM>
+</BODY>
+</HTML>
+

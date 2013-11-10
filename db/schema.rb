@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131109093956) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "launches", force: true do |t|
     t.string   "title"
     t.integer  "version"
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 20131109093956) do
     t.string   "scrape_url"
   end
 
-  add_index "projects", ["launch_id"], name: "index_projects_on_launch_id"
+  add_index "projects", ["launch_id"], name: "index_projects_on_launch_id", using: :btree
 
   create_table "town_projects", force: true do |t|
     t.string   "town_name"
@@ -53,6 +56,6 @@ ActiveRecord::Schema.define(version: 20131109093956) do
     t.boolean  "is_taken"
   end
 
-  add_index "units", ["project_id"], name: "index_units_on_project_id"
+  add_index "units", ["project_id"], name: "index_units_on_project_id", using: :btree
 
 end
