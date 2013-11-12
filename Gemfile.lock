@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Rack (2.0.0)
     actionmailer (4.0.1)
       actionpack (= 4.0.1)
       mail (~> 2.5.4)
@@ -136,6 +137,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  Rack
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
