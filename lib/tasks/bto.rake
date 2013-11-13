@@ -126,48 +126,54 @@ def fetchUnits(project,block)
       
       doc = Nokogiri::HTML(open(file))
 
-      tables = doc.css('table.tableGrid')
+      tables = doc.css('td > table.tableGrid')      
       table = tables[-1] #Last table
-      tableRow = table.css('tr').first
       
-      tableRow.css('td').each do |td|
+      #puts table
+      
+      tableRows = table.css('> tr')
+      
+        tableRows.each do |tableRow|
         
-        blkTable = td.css('table')
+        #puts tableRow
         
-        blkTable.css('tr').each do |unit_tr|
+        tableRow.css('> td').each do |td|
           
-          unit_td = unit_tr.css('td').first
-          unit_font = unit_td.css('font')
-          unit_title = unit_font.text.strip
-          unit_taken_class = unit_font.attr('class')
-         
-          if unit_taken_class.to_s == 'redtext'
-            is_unit_taken = true
-          else
-            is_unit_taken = false
-          end 
-         
-          price_match = unit_td.to_s.match(/title="(.*?)\r/)
-          
-          unit_price =''
-          if price_match
-            unit_price = price_match[1]
+          blkTable = td.css('table').first       
+          blkTable.css('> tr').each do |unit_tr|
+                        
+            unit_td = unit_tr.css('td').first
+            
+            unit_font = unit_td.css('font')
+            unit_title = unit_font.text
+            unit_taken_class = unit_font.attr('class')
+           
+            if unit_taken_class.to_s == 'redtext'
+              is_unit_taken = true
+            else
+              is_unit_taken = false
+            end 
+           
+            price_match = unit_td.to_s.match(/\$(.*?)<\/td>/)
+            
+            unit_price =''
+            if price_match
+              unit_price = price_match[0].sub('</td>','').strip
+            end
+            
+           unit_number_match = unit_title.match(/-(.*)$/)
+           unit_number = unit_number_match[1]
+            
+            unit = {}
+            unit['title'] = unit_title.strip
+            unit['is_taken'] = is_unit_taken
+            unit['price'] =  unit_price.strip
+            unit['unit_number'] = unit_number
+            
+            unit_list.push(unit)
           end
-          
-          unit_number_match = unit_title.match(/-(.*)$/)
-          unit_number = unit_number_match[1]
-          
-          unit = {}
-          unit['title'] = unit_title.strip
-          unit['is_taken'] = is_unit_taken
-          unit['price'] =  unit_price.strip
-          unit['unit_number'] = unit_number
-          
-          unit_list.push(unit)
-          
-        end
-      end  
-       
+        end   
+      end
     end
     
     return unit_list
