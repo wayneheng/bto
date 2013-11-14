@@ -230,6 +230,7 @@ def createUnits(project)
       unit = Unit.new()
       unit.title = fetched_unit['title']
       unit.price = fetched_unit['price']
+      unit.blk = block
       #unit.blk = fetched_unit['unit_number']
       unit.is_taken = fetched_unit['is_taken']
       unit.project = project
