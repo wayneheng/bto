@@ -251,7 +251,7 @@ def createProject(params)
   project.flat_type = 4
   project.version = 0
   project.index = 1
-  project.blocks = ['90A','90B'].join(',')
+  project.blocks = ['90A','90B','91A','92B','93A','93B'].join(',')
   project.scrape_url = 'http://services2.hdb.gov.sg/webapp/BP13INTV/BP13EBSBULIST4?Town=Bukit%20Merah&Flat_Type=BTO&DesType=A&ethnic=Y&Flat=4-ROOM&ViewOption=A&dteBallot=201307&callPage=&projName=N1;C50'
   
   project.save()
