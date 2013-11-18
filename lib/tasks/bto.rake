@@ -90,8 +90,6 @@ def fetchFromHDB(project)
     
   end
   
-  
-  blocks = ['90A','90B']
 
   project.block_list.each do |block|
     
@@ -204,6 +202,7 @@ def syncUnits(project)
        
        puts "unit updated to taken:" + db_unit.title
        db_unit.is_taken = remote_unit['is_taken']
+       db_unit.taken_date = Time.now
        db_unit.save()
        has_changes = true
      end

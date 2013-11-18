@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
       format.html
       format.json {
         @unit_list = @project.units.map do |u|
-          {:id => u.id, :title => u.title, :price => u.price, :is_taken => u.is_taken, :blk => u.blk}
+          {:id => u.id, :title => u.title, :price => u.price, :is_taken => u.is_taken, :blk => u.blk, :taken_date => u.taken_date.to_i}
         end
         render :json => @unit_list.to_json   
       }
