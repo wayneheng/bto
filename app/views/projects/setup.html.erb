@@ -1,0 +1,71 @@
+<h1>Project Setup</h1>
+
+<%= form_for(@project) do |f| %>
+
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :index %><br>
+    <%= f.text_field :index %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :flat_type %><br>
+    <%= f.number_field :flat_type %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br>
+    <%= f.number_field :version %>
+  </div>
+  <div class="field">
+    <%= f.label :launch_id %><br>
+    <%= f.text_field :launch_id %>
+  </div>
+  
+  <h2>Blks</h2>
+  
+  <% @project.blks.each.with_index do |blk,index| %>
+  	<div>
+  		<%= index + 1 %>.
+	  	<%= f.fields_for :blks, blk do |bf| %>
+	    	<%= bf.label :title %>
+	    	<%= bf.text_field :title %>
+	    	
+	    	<%= bf.label :url %>
+			<%= bf.text_field :url, :size => 50 %>
+			
+			<%= bf.label :contract %>
+			<%= bf.text_field :contract %>
+			
+			<%= bf.label :neighbourhood %>
+			<%= bf.text_field :neighbourhood %>
+		
+			<% if bf.object.persisted? %>
+		      <%= bf.check_box :_destroy %>
+		      <%= bf.label :_destroy, "Destroy" %>
+		    <% end %>
+			
+			<%= bf.hidden_field :id, :value => blk.id %>
+
+			
+	  	<% end %>
+  	</div>
+  <% end %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

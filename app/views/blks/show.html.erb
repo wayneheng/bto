@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @blk.title %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @blk.url %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @blk.project %>
+</p>
+
+<p>
+  <strong>Contract:</strong>
+  <%= @blk.contract %>
+</p>
+
+<p>
+  <strong>Neighbourhood:</strong>
+  <%= @blk.neighbourhood %>
+</p>
+
+<%= link_to 'Edit', edit_blk_path(@blk) %> |
+<%= link_to 'Back', blks_path %>

@@ -1,4 +1,6 @@
 Bto::Application.routes.draw do
+  resources :blks
+
   resources :units
 
   resources :projects
@@ -6,6 +8,8 @@ Bto::Application.routes.draw do
   resources :town_projects
 
   resources :launches
+
+  get 'projects/:id/setup' => 'projects#setup', as: :setup
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

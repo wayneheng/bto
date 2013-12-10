@@ -1,0 +1,35 @@
+<h1>Listing blks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Url</th>
+      <th>Project</th>
+      <th>Contract</th>
+      <th>Neighbourhood</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blks.each do |blk| %>
+      <tr>
+        <td><%= blk.title %></td>
+        <td><%= blk.url %></td>
+        <td><%= blk.project %></td>
+        <td><%= blk.contract %></td>
+        <td><%= blk.neighbourhood %></td>
+        <td><%= link_to 'Show', blk %></td>
+        <td><%= link_to 'Edit', edit_blk_path(blk) %></td>
+        <td><%= link_to 'Destroy', blk, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Blk', new_blk_path %>

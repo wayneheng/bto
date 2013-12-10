@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :setup]
 
   # GET /projects
   # GET /projects.json
@@ -24,6 +24,10 @@ class ProjectsController < ApplicationController
       }
     end
     
+  end
+
+  def setup
+    10.times { @project.blks.build }    
   end
 
   # GET /projects/new
@@ -54,6 +58,9 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    
+    puts "Project Params:" + project_params.inspect
+    
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -83,6 +90,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:index, :title, :flat_type, :version, :launch_id)
+      params.require(:project).permit(:index, :title, :flat_type, :version, :launch_id,
+                                      :blks_attributes => [:id, :title, :url, :contract, :neighbourhood, :_destroy])
     end
 end
