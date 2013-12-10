@@ -2,6 +2,11 @@ require 'rubygems'
 require 'mechanize'
 require 'Rack'
 
+#Run in the following order
+#1 generate_json
+#2 create_project
+#3 setup_project
+
 namespace :bt do
   desc "TODO"
   task sync_projects: :environment do
@@ -161,7 +166,7 @@ def fetchFromHDBForBlock(block)
     form['numSPR'] = ''
     form.method = 'POST'
   
-    #pp form
+    pp form
   
     return form  
   
