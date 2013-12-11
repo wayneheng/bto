@@ -5,11 +5,32 @@ class LaunchesController < ApplicationController
   # GET /launches.json
   def index
     @launches = Launch.all
+    
+    respond_to do |format|
+      
+      format.html
+      format.json {
+        
+        @launch_list = @launches.map do |launch|
+          {:id => launch.id, :title => launch.title, :imagePath => launch.imagePath, :version => launch.version,
+           
+           :projects => launch.projects.map do |project|
+               {:id => project.id, :title => project.title, :flat_type => project.flat_type, :version => project.version}
+           end
+          }
+        end
+        
+        render :json => @launch_list.to_json   
+      }
+    end
+    
+    
   end
 
   # GET /launches/1
   # GET /launches/1.json
   def show
+    
   end
 
   # GET /launches/new
