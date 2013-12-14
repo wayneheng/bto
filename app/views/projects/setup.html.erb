@@ -35,6 +35,11 @@
     <%= f.text_field :launch_id %>
   </div>
   
+  <div class="field">
+	<%= f.label :town_project_id %><br>
+    <%= f.text_field :town_project_id %>  	
+  </div>
+  
   <h2>Blks</h2>
   
   <% @project.blks.each.with_index do |blk,index| %>

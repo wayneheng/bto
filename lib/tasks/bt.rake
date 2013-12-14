@@ -90,9 +90,10 @@ def createProjectFromJson(project_id)
   project.id = result['id']
   project.title = result['title']
   project.flat_type = result['flat_type']
-  project.flat_type = result['version']
-  project.flat_type = result['launch_id']
-  project.flat_type = result['scrape_url']
+  project.version = result['version']
+  project.launch_id = result['launch_id']
+  project.town_project_id = result['town_project_id']
+  project.scrape_url = result['scrape_url']
   
   puts "Creating Project:" + project.inspect
   project.save()

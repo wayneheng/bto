@@ -3,7 +3,9 @@
 <table>
   <thead>
     <tr>
+      <th>id</th>
       <th>Town name</th>
+      <th>LaunchId</th>
       <th></th>
       <th></th>
       <th></th>
@@ -13,7 +15,9 @@
   <tbody>
     <% @town_projects.each do |town_project| %>
       <tr>
+      	<th><%= town_project.id %></th>
         <td><%= town_project.town_name %></td>
+		<td><%= town_project.launch_id %></td>        
         <td><%= link_to 'Show', town_project %></td>
         <td><%= link_to 'Edit', edit_town_project_path(town_project) %></td>
         <td><%= link_to 'Destroy', town_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -14,9 +14,14 @@ class LaunchesController < ApplicationController
         @launch_list = @launches.map do |launch|
           {:id => launch.id, :title => launch.title, :imagePath => launch.imagePath, :version => launch.version,
            
-           :projects => launch.projects.map do |project|
-               {:id => project.id, :title => project.title, :flat_type => project.flat_type, :version => project.version}
-           end
+           :town_projects => launch.town_projects.map do |town_project|
+            {
+               :town_name => town_project.town_name,
+               :projects => town_project.projects.map do |project|
+                   {:id => project.id, :title => project.title, :flat_type => project.flat_type, :version => project.version}
+               end
+            }  
+            end           
           }
         end
         

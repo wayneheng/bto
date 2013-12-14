@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>id</th>
       <th>Title</th>
       <th>Version</th>
       <th>Imagepath</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @launches.each do |launch| %>
       <tr>
+      	<td><%= launch.id %></td>
         <td><%= launch.title %></td>
         <td><%= launch.version %></td>
         <td><%= launch.imagePath %></td>

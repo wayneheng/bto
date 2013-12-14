@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :launch
+  belongs_to :town_project
   has_many :units
   has_many :blks, :order => 'created_at ASC'
   
