@@ -16,6 +16,7 @@ class LaunchesController < ApplicationController
            
            :town_projects => launch.town_projects.map do |town_project|
             {
+               :id => town_project.id,
                :town_name => town_project.town_name,
                :projects => town_project.projects.map do |project|
                    {:id => project.id, :title => project.title, :flat_type => project.flat_type, :version => project.version}

@@ -17,10 +17,20 @@ class ProjectsController < ApplicationController
       
       format.html
       format.json {
-        @unit_list = @project.units.map do |u|
-          {:id => u.id, :title => u.title, :price => u.price, :is_taken => u.is_taken, :blk => u.blk, :taken_date => u.taken_date.to_i}
+        
+        blk_list = @project.blks.map do |blk|
+           {:id => blk.id, :blk_title => blk.title}
         end
-        render :json => @unit_list.to_json   
+        
+        @project_details = {
+         
+          :blks => blk_list, 
+          :units => @project.units.map do |u|
+            {:id => u.id, :title => u.title, :price => u.price, :is_taken => u.is_taken, :blk => u.blk, :taken_date => u.taken_date.to_i}  
+          end
+          
+        }
+        render :json => @project_details.to_json   
       }
     end
     
