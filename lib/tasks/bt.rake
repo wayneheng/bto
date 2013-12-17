@@ -113,6 +113,7 @@ def createProjectFromJson(project_id)
     block.contract = blk['contract']
     block.neighbourhood = blk['neighbourhood']
     block.project_id = blk['project_id']
+    block.mapPath = blk['mapPath']
     block.save()
     puts "Creating block:" + block.inspect
   end

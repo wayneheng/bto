@@ -19,12 +19,12 @@ class ProjectsController < ApplicationController
       format.json {
         
         blk_list = @project.blks.map do |blk|
-           {:id => blk.id, :blk_title => blk.title}
+           {:id => blk.id, :blk_title => blk.title, :mapPath => blk.mapPath}
         end
         
         @project_details = {
          
-          :blks => blk_list, 
+          :blks => blk_list,
           :units => @project.units.map do |u|
             {:id => u.id, :title => u.title, :price => u.price, :is_taken => u.is_taken, :blk => u.blk, :taken_date => u.taken_date.to_i}  
           end
@@ -101,6 +101,6 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:index, :title, :flat_type, :version, :launch_id, :town_project_id,
-                                      :blks_attributes => [:id, :title, :url, :contract, :neighbourhood, :_destroy])
+                                      :blks_attributes => [:id, :title, :url, :mapPath, :contract, :neighbourhood, :_destroy])
     end
 end
