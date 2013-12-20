@@ -9,10 +9,25 @@ require 'Rack'
 
 namespace :bt do
   desc "TODO"
-  task sync_projects: :environment do
+  task :sync_projects => :environment do |task,args|
     
-    p = Project.all.first
-    syncProject(p)
+    projects = Project.all
+    
+    projects.each do |p|
+      
+      puts "Syncing Project:" + p.id.to_s
+      
+      begin 
+        syncProject(p)
+      rescue Exception => e
+        puts "=====>TimeOut ERROR!" + e  
+      end
+      
+      puts "Start sleeping"
+      sleep(5)
+      puts "End Sleeping"
+      
+    end
     
   end
   
@@ -153,7 +168,8 @@ def fetchFromHDBForBlock(block)
     form['Neighbourhood'] = params['Neighbourhood']
     form['Town'] = params['Town']
     form['dteBallot'] = params['dteBallot']
-    #form['projName'] = 'N1 ;C50'
+    form['callPage'] = params['callPage']
+    #form['projName'] = params['projName']
     
     form.action = params['action']
     
@@ -162,9 +178,8 @@ def fetchFromHDBForBlock(block)
     form['EthnicC'] = ''
     form['EthnicM'] = ''
     form['EthnicO'] = ''
-    form['firstLoadMap'] = 'Yes'
+    form['firstLoadMap'] = ''
     form['ViewOption'] = 'A'
-    form['callPage'] = ''
     form['numSPR'] = ''
     form.method = 'POST'
   
@@ -299,7 +314,7 @@ def syncUnits(project)
   project.blks.each do |blk|
   
     puts "Parsing block:" + blk.title
-    unit_list = fetchUnits(block)
+    unit_list = fetchUnits(blk)
     
     unit_list.each{|x| hash[x['title']] = x}
     

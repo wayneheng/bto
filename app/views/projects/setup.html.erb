@@ -47,19 +47,19 @@
   		<%= index + 1 %>.
 	  	<%= f.fields_for :blks, blk do |bf| %>
 	    	<%= bf.label :title %>
-	    	<%= bf.text_field :title %>
+	    	<%= bf.text_field :title, :size => 3 %>
 	    	
 	    	<%= bf.label :url %>
-			<%= bf.text_field :url, :size => 50 %>
+			<%= bf.text_field :url, :size => 120 %>
 			
 			<%= bf.label :mapPath %>
 			<%= bf.text_field :mapPath %>
 			
 			<%= bf.label :contract %>
-			<%= bf.text_field :contract %>
+			<%= bf.text_field :contract,  :size => 3 %>
 			
 			<%= bf.label :neighbourhood %>
-			<%= bf.text_field :neighbourhood %>
+			<%= bf.text_field :neighbourhood, :size => 3 %>
 		
 			<% if bf.object.persisted? %>
 		      <%= bf.check_box :_destroy %>

@@ -10,9 +10,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    
-    old_version = params[:version]
-    
+   
     respond_to do |format|
       
       format.html
@@ -24,6 +22,7 @@ class ProjectsController < ApplicationController
         
         @project_details = {
          
+          :version => @project.version,
           :blks => blk_list,
           :units => @project.units.map do |u|
             {:id => u.id, :title => u.title, :price => u.price, :is_taken => u.is_taken, :blk => u.blk, :taken_date => u.taken_date.to_i}  
