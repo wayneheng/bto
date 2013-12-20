@@ -4,6 +4,8 @@ class Project < ActiveRecord::Base
   has_many :units
   has_many :blks, :order => 'created_at ASC'
   
+  default_scope order('id ASC')
+  
   accepts_nested_attributes_for :blks,
     :allow_destroy => true,
     :reject_if     => :all_blank
