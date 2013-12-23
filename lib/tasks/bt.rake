@@ -13,18 +13,41 @@ namespace :bt do
     
     projects = Project.all
     
+    failed_projects = []
+    
     projects.each do |p|
       
       puts "Syncing Project:" + p.id.to_s
       
       begin 
         syncProject(p)
-      rescue Exception => e
-        puts "=====>TimeOut ERROR!" + e  
+      rescue Net::HTTP::Persistent::Error => ex
+        puts "=====>TimeOut ERROR!:"
+        puts ex.class
+        puts "Project syncing timeout:" + p.id.to_s
+        failed_projects.push(p)  
       end
       
       puts "Start sleeping"
-      sleep(5)
+      sleep(10)
+      puts "End Sleeping"
+      
+    end
+    
+    #Second Attempt
+    failed_projects.each do |p|
+      
+      puts "Second attempt to sync Project" + p.id.to_s
+      
+      begin 
+        syncProject(p)
+      rescue Net::HTTP::Persistent::Error => ex
+        puts "=====>TimeOut ERROR!:"
+        puts "2nd Attempt Project syncing timeout:" + p.id.to_s
+      end
+      
+      puts "Start sleeping"
+      sleep(2)
       puts "End Sleeping"
       
     end
@@ -141,6 +164,8 @@ def fetchFromHDBForBlock(block)
   
   url = block.url
   
+  url = url.gsub("%20"," ")
+  
   puts "Fetching Url:" + url
   
   url = URI::encode(url)
@@ -228,7 +253,7 @@ def syncProject(project)
   project.blks.each do |blk|
     
     fetchFromHDBForBlock(blk)
-    
+    sleep(1)
   end
   
   puts "Completed Fetching from HDB for project:" + project.id.to_s
