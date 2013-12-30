@@ -53,6 +53,17 @@ namespace :bt do
     end
     
   end
+
+  task :sync_project, [:project_id] => :environment do |task, args|
+
+    project_id = args.project_id
+
+    puts "Sync Project:" + project_id.to_s
+
+    project = Project.find(project_id)
+    syncProject(project)
+  end
+  
   
   task :setup_project, [:project_id] => :environment do |task, args|
 
@@ -306,11 +317,11 @@ def fetchUnits(block)
               is_unit_taken = false
             end 
            
-            price_match = unit_td.to_s.match(/\$(.*?)<\/td>/)
+            price_match = unit_td.to_s.match(/\$(.*?)</)
             
             unit_price =''
             if price_match
-              unit_price = price_match[0].sub('</td>','').strip
+              unit_price = price_match[0].sub('<','').strip
             end
             
            unit_number_match = unit_title.match(/-(.*)$/)
@@ -352,14 +363,25 @@ def syncUnits(project)
      
      remote_unit = hash[db_unit.title]
      
+     price = remote_unit['price']
+     if price.length > 0 && price != db_unit.price
+       db_unit.price = remote_unit['price']
+       puts "updating price:" + price
+       has_changes = true
+     end
+     
      if db_unit.is_taken != remote_unit['is_taken']
        
        puts "unit updated to taken:" + db_unit.title
        db_unit.is_taken = remote_unit['is_taken']
        db_unit.taken_date = Time.now
-       db_unit.save()
        has_changes = true
      end
+     
+     if has_changes
+       db_unit.save()
+     end
+     
    end
    
    if has_changes
