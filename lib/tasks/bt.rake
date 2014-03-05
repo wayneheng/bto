@@ -29,7 +29,7 @@ namespace :bt do
       end
       
       puts "Start sleeping"
-      sleep(10)
+      sleep(5)
       puts "End Sleeping"
       
     end
@@ -103,8 +103,14 @@ namespace :bt do
 
     createProjectFromJson(project_id)
     
+  end
+
+  task :cleanup => :environment do |task,args|
+
+    cleanup()
+
   end 
-  
+
 def generateJson(project)
   
   result = project.to_json :include => 'blks'
@@ -167,6 +173,14 @@ def createProjectFromJson(project_id)
     puts "Creating block:" + block.inspect
   end
   
+end
+
+def cleanup
+
+  basePath = "ScrapedData"
+  FileUtils.rm_rf(Dir.glob("#{Rails.root.to_s}/#{basePath}/*"))
+  puts "Cleared"
+
 end
   
 def fetchFromHDBForBlock(block)
